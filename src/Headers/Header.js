@@ -1,13 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 import './Header.css';
 import logo from '../assets/logo-full.svg';
 import { Link } from 'react-router-dom'
 function Header() {
+    async function logOut() {
+        const token = Cookies.get('token');
+        let item = {token}
+        console.warn(item)
+        let result = await fetch("http://127.0.0.1:8000/api/auth/logout", {
+          method:"POST",
+          body:JSON.stringify(item),
+          headers:{
+            "Content-Type":'application/json',
+            "Accept":'application/json'
+          }
+        })
+        Cookies.remove('token')
+        result = await result.json()
+        console.warn(result)
+        window.location.href = "/"
+      }
     return (
         <div className='header-main-div'>
             <div className='header'>
-                <div className='logo'><img src={logo} alt='logo' />
-                    <label><Link to="/">USOF</Link></label>
+                <div className='logo'>
+                    <label><Link to="/">ReSoft</Link></label>
                 </div>
                 <div className='search'>
                     <input type='text' placeholder='Search for titles, contents or tags...' />
@@ -21,13 +39,22 @@ function Header() {
                 <div className="help">
                     <Link to="/posts">Posts</Link>
                     <Link to="/categories">Categories</Link>
-                    <Link to="/help">Help</Link>
+                    {
+                        Cookies.get('token') != null && (
+                            <Link to="/me">My profile</Link>
+                        )
+                    }
                 </div>
                 <div className='user'>
-                    <Link to="/login">Log in</Link>
-                    <svg viewBox="0 0 34 34" fill="#F2F0FE" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="17" cy="17" r="17" />
-                    </svg>
+                    {Cookies.get('token') == null &&
+                    (<Link to={"/login"}>
+                        Log In
+                    </Link>)
+                    ||
+                    (<Link to={"/"} onClick={logOut}>
+                        Logout
+                    </Link>)
+                    }
                 </div>
             </div>
         </div>

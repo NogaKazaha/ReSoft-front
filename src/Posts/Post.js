@@ -9,7 +9,7 @@ function Posts() {
     return (
         <div className='posts-main-div'>
             <Helmet>
-                <title>Posts &#8739; USOF</title>
+                <title>Posts &#8739; ReSoft</title>
             </Helmet>
             <div className='posts'>
                 <div className='content'>

@@ -12,12 +12,12 @@ function WelcomePage() {
     return (
         <div className="welcome-main-div">
             <Helmet>
-                <title>Welcome &#8739; USOF</title>
+                <title>Welcome &#8739; ReSoft</title>
             </Helmet>
             <div className='welcome'>
                 <div className="main-info">
-                    <h1 className="about-head">What is <span style={style.themeWord}>USOF</span>?</h1>
-                    <span className="about-span"><span style={style.themeWord}>USOF</span> is one of the most popular forums for UCODE students, where they can share their questions and find a team for the project.</span>
+                    <h1 className="about-head">What is <span style={style.themeWord}>ReSoft</span>?</h1>
+                    <span className="about-span"><span style={style.themeWord}>ReSoft</span> is one of the most popular forums for UCODE students, where they can share their questions and find a team for the project.</span>
                     <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
                         width="200.000000pt" height="200.000000pt" viewBox="0 0 1024.000000 1024.000000"
                         preserveAspectRatio="xMidYMid meet">
@@ -54,7 +54,6 @@ function WelcomePage() {
                     <div className='redirect-to'>
                         <Link to='/posts'>Make a reseach on posts</Link>
                         <Link to='/register'>Sign Up</Link>
-                        <Link to='/help'>Help </Link>
                     </div>
                 </div>
             </div>

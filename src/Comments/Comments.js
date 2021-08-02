@@ -8,7 +8,7 @@ function Comments() {
   return (
     <div className="comments-main-div">
       <Helmet>
-        <title>Comments &#8739; USOF</title>
+        <title>Comments &#8739; ReSoft</title>
       </Helmet>
       <div className="comments">
         <div className="content">
