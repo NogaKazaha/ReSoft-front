@@ -1,0 +1,186 @@
+.posts-main-div {
+	width: 100%;
+	min-height: calc(100vh - 260px);
+	background-color: white;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+.posts {
+	width: 95%;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	margin-top: 30px;
+}
+.content {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	margin-right: 28px;
+}
+.filters {
+	width: 100%;
+	height: 40px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+.all-posts-menu {
+	width: 100%;
+	min-height: fit-content;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	flex-wrap: wrap;
+    justify-content: center;
+}
+.post {
+	width: 100%;
+	min-height: fit-content;
+	background: #ffffff;
+	box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	margin-top: 20px;
+	display: flex;
+	flex-direction: row;
+}
+.tags {
+	width: 100%;
+	min-height: fit-content;
+	display: flex;
+	flex-direction: row;
+}
+.filters > div:first-child {
+	min-width: 400px;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+}
+#post-tags {
+    line-height: 30px;
+}
+#post-tags > button {
+    margin-left: 10px;
+}
+#post-tags-content {
+    color: rgba(49, 49, 49, 0.7);
+}
+
+.filters > div:first-child > span {
+    height: 100%;
+	font-size: 20px;
+	line-height: 40px;
+	color: black;
+}
+.filters > div:first-child > button {
+	height: 100%;
+	font-size: 20px;
+	line-height: 15px;
+	background: #444444;
+	border-radius: 10px;
+	margin-left: 10px;
+	color: white;
+	padding: 0 6px 0 6px;
+}
+
+.filters > div:last-child {
+    height: 100%;
+	min-width: fit-content;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.filters > div:last-child > select {
+    height: 100%;
+	background: #444444;
+	border: 1px solid rgba(88, 88, 88, 0.5);
+	border-radius: 10px;
+    color: white;
+}
+.filters > div:last-child > select:active {
+	outline: none;
+}
+.filters > div:last-child > button {
+	height: 100%;
+  color: white;
+	background: #747474;
+	border: 1px solid #747474;
+	border-radius: 10px;
+	margin-left: 10px;
+	padding: 0 10px 0 10px;
+	font-size: 20px;
+	line-height: 20px;
+}
+.post > div:first-child {
+	width: 40px;
+	min-height: 100%;
+	border-right: 2px solid rgba(226, 226, 226, 0.5);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+    font-size: 20px
+}
+.post > div:first-child > button {
+	fill: rgba(165, 165, 165, 0.5);
+	width: 25px;
+    margin-bottom: 10px;
+}
+.post > div:first-child > button#dislike > svg {
+	transform: matrix(1, 0, 0, -1, 0, 0);
+  margin-top: 10px;
+}
+.post > div:last-child {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-start;
+	padding: 10px;
+}
+.post > div:last-child > h1#post-title {
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 16px;
+	margin-bottom: 10px;
+	color: #000000;
+}
+.post > div:last-child > span#post-content {
+	font-size: 16px;
+	line-height: 15px;
+	margin-bottom: 10px;
+	color: rgba(0, 0, 0, 0.5);
+}
+.post > div:last-child > div#post-tags {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin-bottom: 10px;
+}
+.post > div:last-child > div > button {
+	width: fit-content;
+	height: 30px;
+	background-color: rgba(80, 80, 80, 0.3);
+	border-radius: 10px;
+	padding: 0 10px 0 10px;
+	margin-right: 10px;
+}
+.tags > h1 {
+	font-size: 30px;
+	line-height: 30px;
+	color: black;
+	margin-bottom: 40px;
+    margin-right: 20px;
+}
+.tags > button {
+	height: 30px;
+    width: fit-content;
+	background-color: rgba(80, 80, 80, 0.3);
+	border-radius: 10px;
+	padding: 0 10px 0 10px;
+    margin-right: 20px;
+}

@@ -1,0 +1,7 @@
+.footer-main-div {
+	width: 100%;
+}
+.footer-main-div > svg {
+	width: 100%;
+	height: fit-content;
+}
