@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet'
+import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom'
 import './WelcomePage.css'
 const style = {
@@ -53,7 +54,10 @@ function WelcomePage() {
                     </svg>
                     <div className='redirect-to'>
                         <Link to='/posts'>Make a reseach on posts</Link>
-                        <Link to='/register'>Sign Up</Link>
+                        {Cookies.get('token') == null &&
+                        (<Link to='/register'>Sign Up</Link>)
+                        }
+                        
                     </div>
                 </div>
             </div>

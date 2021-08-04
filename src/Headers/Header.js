@@ -17,6 +17,7 @@ function Header() {
           }
         })
         Cookies.remove('token')
+        Cookies.remove('user_id')
         result = await result.json()
         console.warn(result)
         window.location.href = "/"
@@ -41,7 +42,7 @@ function Header() {
                     <Link to="/categories">Categories</Link>
                     {
                         Cookies.get('token') != null && (
-                            <Link to="/me">My profile</Link>
+                            <Link to='/me'>My profile</Link>
                         )
                     }
                 </div>

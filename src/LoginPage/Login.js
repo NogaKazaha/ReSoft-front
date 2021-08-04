@@ -22,7 +22,8 @@ function Login() {
     result = await result.json()
     console.warn(result.token)
     Cookies.set('token', result.token);
-    window.location.href = "/me"
+    Cookies.set('user_id', result.user_id)
+    window.location.href = `/me`
   }
 
   return (
@@ -36,7 +37,7 @@ function Login() {
         <input className="login-input" value={password} type="text" onChange={(e)=> setPassword(e.target.value)} placeholder="Password"></input>
         <button className="login-button" onClick={logIn}>Log in</button>
         <span className="redirect-to-register">Don't have account? <Link to="/register">Sign up</Link></span>
-        <span className="redirect-to-register">Forgot password? <Link to="/password_remind">Remind password</Link></span>
+        <span className="redirect-to-register">Forgot password? <Link to="/password_reset">Reset password</Link></span>
       </div>
     </div>
   )

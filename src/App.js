@@ -7,8 +7,9 @@ import Footer from './Footer'
 import Categories from './Categories/Categories'
 import Login from './LoginPage/Login'
 import Register from './RegisterPage/Register'
-import RemindPass from './PasswordRemind/PasswordRemind'
+import PasswordReset, {ForgotPassword} from './PasswordReset/PasswordReset'
 import Comments from './Comments/Comments'
+import MyProfile from './MyProfile/MyProfile';
 
 function App() {
   return (
@@ -20,8 +21,10 @@ function App() {
           <Route path="/categories" exact component={ Categories }/>
           <Route path="/login" exact component={ Login }/>
           <Route path="/register" exact component={ Register }/>
-          <Route path="/password_remind" exact component={ RemindPass }/>
+          <Route path="/password_reset" exact component={ PasswordReset }/>
+          <Route path="/password_reset/:token" exact component={ ForgotPassword }/>
           <Route path="/posts/id/comments" exact component={ Comments }/>
+          <Route path="/me" exact component={ MyProfile }/>
         </Switch>
         <Footer />
     </BrowserRouter>

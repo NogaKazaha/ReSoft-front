@@ -1,0 +1,51 @@
+.my-profile-main-div {
+    min-height: calc(100vh - 160px);
+    width: 100%;
+    display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	text-align: center;
+}
+.my-profile-avatar-div {
+    width:  fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.avatar {
+    width: 500px;
+    height: 500px;
+}
+.my-profile-user-info {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+	justify-content: space-between;
+    margin-top: 20px;
+	margin-bottom: 40px;
+}
+.my-profile-buttons {
+	margin-left: 20px;
+	margin-top: 50px;
+}
+.my-profile-buttons > a {
+	place-items: center;
+	text-decoration: none;
+	font-size: 20px;
+	line-height: 20px;
+	background: rgb(63, 63, 63);
+	border-radius: 10px;
+	margin-right: 40px;
+	margin-top: 40px;
+	margin-bottom: 10px;
+	color: white;
+	padding: 10px;
+}
+.my-profile-buttons > a:hover {
+	transition: all 0.5s;
+	background: transparent;
+	color: black;
+}
