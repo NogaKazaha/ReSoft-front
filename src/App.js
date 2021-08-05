@@ -9,7 +9,7 @@ import Login from './LoginPage/Login'
 import Register from './RegisterPage/Register'
 import PasswordReset, {ForgotPassword} from './PasswordReset/PasswordReset'
 import Comments from './Comments/Comments'
-import MyProfile from './MyProfile/MyProfile';
+import MyProfile, {UpdateMyProfile} from './MyProfile/MyProfile';
 
 function App() {
   return (
@@ -25,6 +25,7 @@ function App() {
           <Route path="/password_reset/:token" exact component={ ForgotPassword }/>
           <Route path="/posts/id/comments" exact component={ Comments }/>
           <Route path="/me" exact component={ MyProfile }/>
+          <Route path="/me/update" exact component={ UpdateMyProfile }/>
         </Switch>
         <Footer />
     </BrowserRouter>

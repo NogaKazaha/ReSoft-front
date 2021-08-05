@@ -22,7 +22,7 @@ function Login() {
     result = await result.json()
     console.warn(result.token)
     Cookies.set('token', result.token);
-    Cookies.set('user_id', result.user_id)
+    Cookies.set('my_id', result.user_id)
     window.location.href = `/me`
   }
 
