@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 import { Helmet } from 'react-helmet'
-import AllCategories from './AllCategories'
 
+import AllCategories from './AllCategories';
 
 function Categories() {
   return (

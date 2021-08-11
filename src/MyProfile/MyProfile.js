@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 import { Link, useHistory } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import './MyProfile.css'
+import Modal from '../Modal/Modal';
 
 function MyProfile() {
     let [user, setUser] = useState([])
@@ -17,7 +18,22 @@ function MyProfile() {
         .then((response) => response.json())
         .then(data => setUser(data))
     },[])
-
+    const [modalActive, setModalActive] = useState(false)
+    async function deleteUser() {
+      let result = await fetch(`http://127.0.0.1:8000/api/users/delete/${Cookies.get('my_id')}`, {
+        method:"DELETE",
+        headers:{
+          "Content-Type":'application/json',
+          "Accept":'application/json',
+          "Authorization": 'Bearer' + Cookies.get('token')
+        }
+      })
+      result = await result.json()
+      console.warn(result)
+      Cookies.remove('token');
+      Cookies.remove('my_id')
+      window.location.href = `/`
+    }
   return (
     <div className="login-main-div">
       <Helmet>
@@ -36,8 +52,12 @@ function MyProfile() {
           </div>
           <div className="my-profile-buttons">
             <Link to='/me/update'>Update my profile</Link>
-            <Link to='/me/delete'>Delete my profile</Link>
+            <Link onClick={() => setModalActive(true)}>Delete my profile</Link>
           </div>
+          <Modal active={modalActive} setActive={setModalActive}>
+            <p className='warning'>Are you sure that you want to delete your profile. You will lose access to your account</p>
+            <button onClick={deleteUser}>Delete my profile</button>
+          </Modal>
       </div>
     </div>
   )
@@ -115,7 +135,7 @@ export function UpdateMyProfile() {
           <div className="my-profile-avatar-div">
             <img className="avatar" src={'http://localhost:8000/' + user.avatar}></img>
             <form encType="multipart/form-data">
-              <input className="fileInput" type="file" value={avatar} onChange={(e) => setAvatar(e.target.files[0])} accept="image/png,image/gif,image/jpeg, image/jpg" />
+              <input className="fileInput" type="file" value={avatar} accept="image/png,image/gif,image/jpeg, image/jpg" />
               <button className="submitButton" type="submit" onClick={updateAvatar}>Upload Image</button>
             </form>
           </div>
