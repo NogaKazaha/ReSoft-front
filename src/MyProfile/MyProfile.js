@@ -82,6 +82,10 @@ export function UpdateMyProfile() {
         .then((response) => response.json())
         .then(data => setUser(data))
     },[])
+    async function onChange(e) {
+      var file = e.target.files[0];
+      setAvatar(file);
+    }
     async function updateAvatar() {
       const formData = new FormData()
       formData.append("avatar", avatar)
@@ -135,7 +139,7 @@ export function UpdateMyProfile() {
           <div className="my-profile-avatar-div">
             <img className="avatar" src={'http://localhost:8000/' + user.avatar}></img>
             <form encType="multipart/form-data">
-              <input className="fileInput" type="file" value={avatar} accept="image/png,image/gif,image/jpeg, image/jpg" />
+              <input className="fileInput" type="file" value={avatar} onChange={onChange} accept="image/png,image/gif,image/jpeg, image/jpg" />
               <button className="submitButton" type="submit" onClick={updateAvatar}>Upload Image</button>
             </form>
           </div>
