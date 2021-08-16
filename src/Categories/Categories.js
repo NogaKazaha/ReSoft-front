@@ -39,7 +39,7 @@ function Categories() {
       <div className="categories">
         <div className="content">
           <AllCategories categories={currentCategory} loading={loading}/>
-          <Pagination categoriesPerPage={categoriesPerPage} totalCategories={categories.length} paginate={paginate} />
+          <Pagination PerPage={categoriesPerPage} total={categories.length} paginate={paginate} />
         </div>
       </div>
     </div>

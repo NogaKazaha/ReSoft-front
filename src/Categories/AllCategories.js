@@ -11,7 +11,9 @@ export default function AllCategories({categories, loading}) {
                 return (
                   <div className='category'>
                     <Link to={url}>
-                      <h1 id="category-title" key={index}>{categories.title}</h1>
+                      <div>
+                        <h1 id="category-title" key={index}>{categories.title}</h1>
+                      </div>
                       <span id="category-description" key={index}>{categories.description}</span>
                     </Link>
                   </div>

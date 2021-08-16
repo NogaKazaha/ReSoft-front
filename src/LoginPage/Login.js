@@ -19,11 +19,16 @@ function Login() {
         "Accept":'application/json'
       }
     })
-    result = await result.json()
-    console.warn(result.token)
-    Cookies.set('token', result.token);
-    Cookies.set('my_id', result.user_id)
-    window.location.href = `/me`
+    if(result.status != 200) {
+      console.error('Login error. Http request status:', result.status)
+    }
+    else {
+      result = await result.json()
+      console.warn(result.token)
+      Cookies.set('token', result.token);
+      Cookies.set('my_id', result.user_id)
+      window.location.href = `/me`
+    }
   }
 
   return (

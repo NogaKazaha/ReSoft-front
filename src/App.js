@@ -11,6 +11,8 @@ import PasswordReset, {ForgotPassword} from './PasswordReset/PasswordReset'
 import Comments from './Comments/Comments'
 import MyProfile, {UpdateMyProfile} from './MyProfile/MyProfile';
 import OneCategory from './Categories/OneCategory';
+import Users from './Users/Users';
+import OneUser from './Users/OneUser';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path="/posts" exact component={ Posts }/>
           <Route path="/categories" exact component={ Categories }/>
           <Route path='/categories/:id' component = {OneCategory} />
+          <Route path="/users" exact component={ Users }/>
+          <Route path='/users/:id' component = {OneUser} />
           <Route path="/login" exact component={ Login }/>
           <Route path="/register" exact component={ Register }/>
           <Route path="/password_reset" exact component={ PasswordReset }/>

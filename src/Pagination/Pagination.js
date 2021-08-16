@@ -1,9 +1,9 @@
 import React from 'react'
 import './Pagination.css'
 
-function Pagination({categoriesPerPage, totalCategories, paginate}) {
+function Pagination({PerPage, total, paginate}) {
     const pageNumbers = [];
-    for(let i = 1; i <= Math.ceil(totalCategories / categoriesPerPage); i++) {
+    for(let i = 1; i <= Math.ceil(total / PerPage); i++) {
         pageNumbers.push(i);
     }
     return (

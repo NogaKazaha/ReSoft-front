@@ -2,7 +2,6 @@ import React from 'react';
 import { Helmet } from 'react-helmet'
 import './Post.css';
 import Filters from './Filters';
-import Popular from './PopularCategories';
 import AllPosts from './AllPosts'
 
 function Posts() {
@@ -13,7 +12,10 @@ function Posts() {
             </Helmet>
             <div className='posts'>
                 <div className='content'>
-                    <Popular />
+                    <div>
+                        <span>No post for you?</span>
+                        <button id='create-question'>Create a question</button>
+                    </div>
                     <Filters />
                     <AllPosts />
                 </div>
