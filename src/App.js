@@ -13,6 +13,7 @@ import MyProfile, {UpdateMyProfile} from './MyProfile/MyProfile';
 import OneCategory from './Categories/OneCategory';
 import Users from './Users/Users';
 import OneUser from './Users/OneUser';
+import OnePost from './Posts/OnePost';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={ WelcomePage }/>
           <Route path="/posts" exact component={ Posts }/>
+          <Route path='/posts/:id' component = {OnePost} />
           <Route path="/categories" exact component={ Categories }/>
           <Route path='/categories/:id' component = {OneCategory} />
           <Route path="/users" exact component={ Users }/>

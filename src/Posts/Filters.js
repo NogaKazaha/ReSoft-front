@@ -13,8 +13,7 @@ export default function Filters() {
                 </select>
             </div>
             <div>
-                <span>No post for you?</span>
-                <button id='create-question'>Create a question</button>
+                <button id='create-question'>Search</button>
             </div>
         </div>
     )
