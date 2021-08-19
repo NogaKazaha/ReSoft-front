@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import './Post.css';
 export default function AllPosts({posts, loading}) {
     return (
@@ -8,6 +9,7 @@ export default function AllPosts({posts, loading}) {
             {
                 posts.map((posts, index) =>{
                     const url = "/posts/" + posts.id
+                    const comment_url = "/comments/" + posts.id
                     return (
                         <div className='post'>
                             <div class="dropdown">
@@ -17,15 +19,67 @@ export default function AllPosts({posts, loading}) {
                                             <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
                                         </svg>
                                     </Dropdown.Toggle>
-                                    <Dropdown.Menu className="dropdown-content">
-                                        <Dropdown.Item href="#">Put like</Dropdown.Item>
-                                        <Dropdown.Item href="#">Put dislike</Dropdown.Item>
-                                        <Dropdown.Item href="#">Delete my mark</Dropdown.Item>
-                                        <Dropdown.Item href="#">Add to subscriptions</Dropdown.Item>
-                                        <Dropdown.Item href="#">Add to favorite</Dropdown.Item>
-                                        <Dropdown.Item href="#">Delete to subscriptions</Dropdown.Item>
-                                        <Dropdown.Item href="#">Delete to favorite</Dropdown.Item>
-                                    </Dropdown.Menu>
+                                    {
+                                        Cookies.get('token') != null && (
+                                            Cookies.get(`liked_post_${posts.id}`) != posts.id && (
+                                                <Dropdown.Menu className="dropdown-content">
+                                                    <Dropdown.Item href="#">Put like</Dropdown.Item>
+                                                    <Dropdown.Item href="#">Put dislike</Dropdown.Item>
+                                                    {
+                                                        Cookies.get(`subs_${posts.id}`) == posts.id && (
+                                                            <Dropdown.Item href="#">Delete from subscriptions</Dropdown.Item>
+                                                        )
+                                                        ||
+                                                        (
+                                                            <Dropdown.Item href="#">Add to subscriptions</Dropdown.Item>
+                                                        )
+                                                    }
+                                                    {
+                                                        Cookies.get(`favs_${posts.id}`) == posts.id && (
+                                                                <Dropdown.Item href="#">Delete from favorites</Dropdown.Item>
+                                                        )
+                                                        ||
+                                                        (
+                                                            <Dropdown.Item href="#">Add to favorites</Dropdown.Item>
+                                                        )
+                                                    }
+                                                    <Dropdown.Item href={comment_url}>Show comments</Dropdown.Item>
+                                                </Dropdown.Menu>
+                                                )
+                                                ||
+                                                (
+                                                    <Dropdown.Menu className="dropdown-content">
+                                                        <Dropdown.Item href="#">Delete my mark</Dropdown.Item>
+                                                        {
+                                                            Cookies.get(`subs_${posts.id}`) == posts.id && (
+                                                                <Dropdown.Item href="#">Delete to subscriptions</Dropdown.Item>
+                                                            )
+                                                            ||
+                                                            (
+                                                                <Dropdown.Item href="#">Add to subscriptions</Dropdown.Item>
+                                                            )
+                                                        }
+                                                        {
+                                                        Cookies.get(`favs_${posts.id}`) == posts.id && (
+                                                                <Dropdown.Item href="#">Delete from favorites</Dropdown.Item>
+                                                        )
+                                                        ||
+                                                        (
+                                                            <Dropdown.Item href="#">Add to favorites</Dropdown.Item>
+                                                        )
+                                                    }  
+                                                    <Dropdown.Item href={comment_url}>Show comments</Dropdown.Item>
+                                                    </Dropdown.Menu>
+                                                )
+                                        
+                                        ) 
+                                        ||
+                                        (
+                                        <Dropdown.Menu className="dropdown-content">
+                                            <Dropdown.Item href="/login">Log in first</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                        )
+                                    }
                                 </Dropdown>
                             </div>
                             <div>

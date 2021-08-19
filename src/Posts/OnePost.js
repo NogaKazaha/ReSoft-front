@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
 import './OnePost.css'
+import Cookies from 'js-cookie';
 
 export default class OnePost extends React.Component {
   constructor (props) {
@@ -35,23 +36,74 @@ export default class OnePost extends React.Component {
                             <span id="post-rating-div">Rating: {this.state.post.rating}</span>
                             <Link to={'/users/' + this.state.post.user_id}><span id="post-creator-div">Author: {this.state.user.username}</span></Link>
                             <div class="dropdown">
-                                    <Dropdown>
-                                        <Dropdown.Toggle variant="success" className="dropbtn">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                                                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
-                                            </svg>
-                                        </Dropdown.Toggle>
+                            <Dropdown>
+                                    <Dropdown.Toggle variant="success" className="dropbtn">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                                        </svg>
+                                    </Dropdown.Toggle>
+                                    {
+                                        Cookies.get('token') != null && (
+                                            Cookies.get(`liked_post_${this.state.post_id}`) != this.state.post_id && (
+                                                <Dropdown.Menu className="dropdown-content">
+                                                    <Dropdown.Item href="#">Put like</Dropdown.Item>
+                                                    <Dropdown.Item href="#">Put dislike</Dropdown.Item>
+                                                    {
+                                                        Cookies.get(`subs_${this.state.post_id}`) == this.state.post_id && (
+                                                            <Dropdown.Item href="#">Delete from subscriptions</Dropdown.Item>
+                                                        )
+                                                        ||
+                                                        (
+                                                            <Dropdown.Item href="#">Add to subscriptions</Dropdown.Item>
+                                                        )
+                                                    }
+                                                    {
+                                                        Cookies.get(`favs_${this.state.post_id}`) == this.state.post_id && (
+                                                                <Dropdown.Item href="#">Delete from favorites</Dropdown.Item>
+                                                        )
+                                                        ||
+                                                        (
+                                                            <Dropdown.Item href="#">Add to favorites</Dropdown.Item>
+                                                        )
+                                                    }
+                                                    <Dropdown.Item href={"/comments/" + this.state.post_id}>Show comments</Dropdown.Item>
+                                                </Dropdown.Menu>
+                                                )
+                                                ||
+                                                (
+                                                    <Dropdown.Menu className="dropdown-content">
+                                                        <Dropdown.Item href="#">Delete my mark</Dropdown.Item>
+                                                        {
+                                                            Cookies.get(`subs_${this.state.post_id}`) == this.state.post_id && (
+                                                                <Dropdown.Item href="#">Delete to subscriptions</Dropdown.Item>
+                                                            )
+                                                            ||
+                                                            (
+                                                                <Dropdown.Item href="#">Add to subscriptions</Dropdown.Item>
+                                                            )
+                                                        }
+                                                        {
+                                                        Cookies.get(`favs_${this.state.post_id}`) == this.state.post_id && (
+                                                                <Dropdown.Item href="#">Delete from favorites</Dropdown.Item>
+                                                        )
+                                                        ||
+                                                        (
+                                                            <Dropdown.Item href="#">Add to favorites</Dropdown.Item>
+                                                        )
+                                                    }  
+                                                    <Dropdown.Item href={"/comments/" + this.state.post_id}>Show comments</Dropdown.Item>
+                                                    </Dropdown.Menu>
+                                                )
+                                        
+                                        ) 
+                                        ||
+                                        (
                                         <Dropdown.Menu className="dropdown-content">
-                                            <Dropdown.Item href="#">Put like</Dropdown.Item>
-                                            <Dropdown.Item href="#">Put dislike</Dropdown.Item>
-                                            <Dropdown.Item href="#">Delete my mark</Dropdown.Item>
-                                            <Dropdown.Item href="#">Add to subscriptions</Dropdown.Item>
-                                            <Dropdown.Item href="#">Add to favorite</Dropdown.Item>
-                                            <Dropdown.Item href="#">Delete to subscriptions</Dropdown.Item>
-                                            <Dropdown.Item href="#">Delete to favorite</Dropdown.Item>
-                                            <Dropdown.Item href="#">Show comments</Dropdown.Item>
+                                            <Dropdown.Item href="/login">Log in first</Dropdown.Item>
                                         </Dropdown.Menu>
-                                    </Dropdown>
+                                        )
+                                    }
+                                </Dropdown>
                             </div>
                         </div>
                         

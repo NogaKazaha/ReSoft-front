@@ -4,6 +4,7 @@ import './Post.css';
 import Filters from './Filters';
 import AllPosts from './AllPosts'
 import Pagination from '../Pagination/Pagination'
+import Cookies from 'js-cookie';
 
 function Posts() {
     const [loading, setLoading] = useState(false)
@@ -38,10 +39,14 @@ function Posts() {
             </Helmet>
             <div className='posts'>
                 <div className='content'>
-                    <div>
-                        <span>No post for you?</span>
-                        <button id='create-question'>Create a question</button>
-                    </div>
+                    {
+                        Cookies.get('token') != null && (
+                        <div>
+                            <span>No post for you?</span>
+                            <button id='create-question'>Create a question</button>
+                        </div>
+                        )
+                    }
                     <Filters />
                     <AllPosts posts={currentPost} loading={loading}/>
                     <Pagination PerPage={postsPerPage} total={posts.length} paginate={paginate} />

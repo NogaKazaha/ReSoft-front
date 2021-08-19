@@ -31,7 +31,7 @@ function App() {
           <Route path="/register" exact component={ Register }/>
           <Route path="/password_reset" exact component={ PasswordReset }/>
           <Route path="/password_reset/:token" exact component={ ForgotPassword }/>
-          <Route path="/posts/id/comments" exact component={ Comments }/>
+          <Route path="/comments/:id" component={ Comments }/>
           <Route path="/me" exact component={ MyProfile }/>
           <Route path="/me/update" exact component={ UpdateMyProfile }/>
         </Switch>

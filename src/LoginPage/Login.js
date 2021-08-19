@@ -24,6 +24,52 @@ function Login() {
     }
     else {
       result = await result.json()
+      let liked_posts = await fetch(`http://127.0.0.1:8000/api/posts/show/${result.user_id}/like`, {
+      method:"GET",
+      headers:{
+        "Content-Type":'application/json',
+        "Accept":'application/json'
+      }
+      })
+      let liked_comments = await fetch(`http://127.0.0.1:8000/api/comments/show/${result.user_id}/like`, {
+      method:"GET",
+      headers:{
+        "Content-Type":'application/json',
+        "Accept":'application/json'
+      }
+      })
+      let subs = await fetch(`http://127.0.0.1:8000/api/subscriptions/show/${result.user_id}/ids`, {
+      method:"GET",
+      headers:{
+        "Content-Type":'application/json',
+        "Accept":'application/json'
+      }
+      })
+      let favs = await fetch(`http://127.0.0.1:8000/api/favorites/show/${result.user_id}/ids`, {
+      method:"GET",
+      headers:{
+        "Content-Type":'application/json',
+        "Accept":'application/json'
+      }
+      })
+      
+      liked_posts = await liked_posts.json()
+      liked_comments = await liked_comments.json()
+      subs = await subs.json()
+      favs = await favs.json()
+      console.log(subs)
+      for(let i = 1; i <= liked_posts.length; i++) {
+        Cookies.set(`liked_post_${liked_posts[i - 1]}`, liked_posts[i - 1]);
+      }
+      for(let i = 1; i <= liked_comments.length; i++) {
+        Cookies.set(`liked_comment_${liked_comments[i - 1]}`, liked_comments[i - 1]);
+      }
+      for(let i = 1; i <= subs.length; i++) {
+        Cookies.set(`subs_${subs[i - 1]}`, subs[i - 1]);
+      }
+      for(let i = 1; i <= favs.length; i++) {
+        Cookies.set(`favs_${favs[i - 1]}`, favs[i - 1]);
+      }
       console.warn(result.token)
       Cookies.set('token', result.token);
       Cookies.set('my_id', result.user_id)
