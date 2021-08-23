@@ -34,10 +34,10 @@ function Register() {
       </Helmet>
       <div className="register-form">
         <h1>Register</h1>
-        <input className="register-input" value={username} type="text" onChange={(e)=> setUsername(e.target.value)} placeholder="Username"></input>
-        <input className="register-input" value={name} type="text" onChange={(e)=> setName(e.target.value)} placeholder="Name"></input>
-        <input className="register-input" value={email} type="text" onChange={(e)=> setEmail(e.target.value)} placeholder="Email"></input>
-        <input className="register-input" value={password} type="text" onChange={(e)=> setPassword(e.target.value)} placeholder="Password"></input>
+        <input className="register-input" value={username} type="text" onChange={(e)=> setUsername(e.target.value)} placeholder="Username" required></input>
+        <input className="register-input" value={name} type="text" onChange={(e)=> setName(e.target.value)} placeholder="Name" required></input>
+        <input className="register-input" value={email} type="text" onChange={(e)=> setEmail(e.target.value)} placeholder="Email" required></input>
+        <input className="register-input" value={password} type="password" onChange={(e)=> setPassword(e.target.value)} placeholder="Password" required></input>
         <button className="register-button" onClick={signUp}>Sign up</button>
         <span className="redirect-to-login">Already have an account? <Link to="/login">Sign in</Link></span>
       </div>

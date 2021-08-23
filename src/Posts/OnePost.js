@@ -11,7 +11,8 @@ export default class OnePost extends React.Component {
     this.state = {
         user: [],
         post: [],
-        post_id: props.match.params.id
+        post_id: props.match.params.id,
+        type: ""
     }
   }
   async componentDidMount() {
@@ -22,6 +23,114 @@ export default class OnePost extends React.Component {
       const user = res1.data;
       this.setState({ user });
   }
+  async putLIke(post_id) {
+    const type = "like" 
+    this.setState({ type })
+    let item = {type}
+    console.warn(item)
+    let result = await fetch(`http://127.0.0.1:8000/api/posts/${post_id}/like` , {
+      method:"POST",
+      body:JSON.stringify(item),
+      headers:{
+        "Content-Type":'application/json',
+        "Accept":'application/json',
+        "Authorization": 'Bearer' + Cookies.get('token')
+      }
+    })
+    result = await result.json()
+    Cookies.set(`liked_post_${post_id}`, post_id)
+    console.warn("result", result)
+    window.location.href = `/posts/${post_id}`
+}
+async putDislike(post_id) {
+    const type = "dislike" 
+    this.setState({ type })
+    let item = {type}
+    console.warn(item)
+    let result = await fetch(`http://127.0.0.1:8000/api/posts/${post_id}/like` , {
+      method:"POST",
+      body:JSON.stringify(item),
+      headers:{
+        "Content-Type":'application/json',
+        "Accept":'application/json',
+        "Authorization": 'Bearer' + Cookies.get('token')
+      }
+    })
+    result = await result.json()
+    Cookies.set(`liked_post_${post_id}`, post_id)
+    console.warn("result", result)
+    window.location.href = `/posts/${post_id}`
+}
+async deleteMyMark(post_id) {
+    let result = await fetch(`http://127.0.0.1:8000/api/posts/${post_id}/like` , {
+      method:"DELETE",
+      headers:{
+        "Content-Type":'application/json',
+        "Accept":'application/json',
+        "Authorization": 'Bearer' + Cookies.get('token')
+      }
+    })
+    result = await result.json()
+    Cookies.remove(`liked_post_${post_id}`)
+    console.warn("result", result)
+    window.location.href = `/posts/${post_id}`
+}
+async addToSubs(post_id) {
+    let result = await fetch(`http://127.0.0.1:8000/api/subscriptions/add/${post_id}` , {
+      method:"POST",
+      headers:{
+        "Content-Type":'application/json',
+        "Accept":'application/json',
+        "Authorization": 'Bearer' + Cookies.get('token')
+      }
+    })
+    result = await result.json()
+    Cookies.set(`subs_${post_id}`, post_id)
+    console.warn("result", result)
+    window.location.href = `/posts/${post_id}`
+}
+async delFromSubs(post_id) {
+    let result = await fetch(`http://127.0.0.1:8000/api/subscriptions/delete/${post_id}` , {
+      method:"DELETE",
+      headers:{
+        "Content-Type":'application/json',
+        "Accept":'application/json',
+        "Authorization": 'Bearer' + Cookies.get('token')
+      }
+    })
+    result = await result.json()
+    Cookies.remove(`subs_${post_id}`, post_id)
+    console.warn("result", result)
+    window.location.href = `/posts/${post_id}`
+}
+async addToFavs(post_id) {
+    let result = await fetch(`http://127.0.0.1:8000/api/favorites/add/${post_id}` , {
+      method:"POST",
+      headers:{
+        "Content-Type":'application/json',
+        "Accept":'application/json',
+        "Authorization": 'Bearer' + Cookies.get('token')
+      }
+    })
+    result = await result.json()
+    Cookies.set(`favs_${post_id}`, post_id)
+    console.warn("result", result)
+    window.location.href = `/posts/${post_id}`
+}
+async delFromFavs(post_id) {
+    let result = await fetch(`http://127.0.0.1:8000/api/favorites/delete/${post_id}` , {
+      method:"DELETE",
+      headers:{
+        "Content-Type":'application/json',
+        "Accept":'application/json',
+        "Authorization": 'Bearer' + Cookies.get('token')
+      }
+    })
+    result = await result.json()
+    Cookies.remove(`favs_${post_id}`, post_id)
+    console.warn("result", result)
+    window.location.href = `/posts/${post_id}`
+}
   
   render() 
   { 
@@ -34,7 +143,7 @@ export default class OnePost extends React.Component {
                             <h1 id="post-title">{this.state.post.title}</h1>
                             <span id="post-description">{this.state.post.content}</span>
                             <span id="post-rating-div">Rating: {this.state.post.rating}</span>
-                            <Link to={'/users/' + this.state.post.user_id}><span id="post-creator-div">Author: {this.state.user.username}</span></Link>
+                            <Link to={this.state.post.user_id == Cookies.get('my_id') ? '/me' : '/users/' + this.state.post.user_id}><span id="post-creator-div">Author: {this.state.user.username}</span></Link>
                             <div class="dropdown">
                             <Dropdown>
                                     <Dropdown.Toggle variant="success" className="dropbtn">
@@ -43,27 +152,33 @@ export default class OnePost extends React.Component {
                                         </svg>
                                     </Dropdown.Toggle>
                                     {
+                                        
                                         Cookies.get('token') != null && (
                                             Cookies.get(`liked_post_${this.state.post_id}`) != this.state.post_id && (
                                                 <Dropdown.Menu className="dropdown-content">
-                                                    <Dropdown.Item href="#">Put like</Dropdown.Item>
-                                                    <Dropdown.Item href="#">Put dislike</Dropdown.Item>
+                                                    <Dropdown.Item onClick={() => this.putLIke(this.state.post_id)}>Put like</Dropdown.Item>
+                                                    <Dropdown.Item onClick={() => this.putDislike(this.state.post_id)}>Put dislike</Dropdown.Item>
                                                     {
                                                         Cookies.get(`subs_${this.state.post_id}`) == this.state.post_id && (
-                                                            <Dropdown.Item href="#">Delete from subscriptions</Dropdown.Item>
+                                                            <Dropdown.Item onClick={() => this.delFromSubs(this.state.post_id)}>Delete from subscriptions</Dropdown.Item>
                                                         )
                                                         ||
                                                         (
-                                                            <Dropdown.Item href="#">Add to subscriptions</Dropdown.Item>
+                                                            <Dropdown.Item onClick={() => this.addToSubs(this.state.post_id)}>Add to subscriptions</Dropdown.Item>
                                                         )
                                                     }
                                                     {
                                                         Cookies.get(`favs_${this.state.post_id}`) == this.state.post_id && (
-                                                                <Dropdown.Item href="#">Delete from favorites</Dropdown.Item>
+                                                                <Dropdown.Item onClick={() => this.delFromFavs(this.state.post_id)}>Delete from favorites</Dropdown.Item>
                                                         )
                                                         ||
                                                         (
-                                                            <Dropdown.Item href="#">Add to favorites</Dropdown.Item>
+                                                            <Dropdown.Item onClick={() => this.addToFavs(this.state.post_id)}>Add to favorites</Dropdown.Item>
+                                                        )
+                                                    }
+                                                    {
+                                                        Cookies.get(`my_posts_${this.state.post_id}`) == this.state.post_id && (
+                                                                <Dropdown.Item href="#">Update post</Dropdown.Item>
                                                         )
                                                     }
                                                     <Dropdown.Item href={"/comments/" + this.state.post_id}>Show comments</Dropdown.Item>
@@ -72,26 +187,31 @@ export default class OnePost extends React.Component {
                                                 ||
                                                 (
                                                     <Dropdown.Menu className="dropdown-content">
-                                                        <Dropdown.Item href="#">Delete my mark</Dropdown.Item>
+                                                        <Dropdown.Item onClick={() => this.deleteMyMark(this.state.post_id)}>Delete my mark</Dropdown.Item>
                                                         {
                                                             Cookies.get(`subs_${this.state.post_id}`) == this.state.post_id && (
-                                                                <Dropdown.Item href="#">Delete to subscriptions</Dropdown.Item>
+                                                                <Dropdown.Item onClick={() => this.delFromSubs(this.state.post_id)}>Delete to subscriptions</Dropdown.Item>
                                                             )
                                                             ||
                                                             (
-                                                                <Dropdown.Item href="#">Add to subscriptions</Dropdown.Item>
+                                                                <Dropdown.Item onClick={() => this.addToSubs(this.state.post_id)}>Add to subscriptions</Dropdown.Item>
                                                             )
                                                         }
                                                         {
                                                         Cookies.get(`favs_${this.state.post_id}`) == this.state.post_id && (
-                                                                <Dropdown.Item href="#">Delete from favorites</Dropdown.Item>
+                                                                <Dropdown.Item onClick={() => this.delFromFavs(this.state.post_id)}>Delete from favorites</Dropdown.Item>
                                                         )
                                                         ||
                                                         (
-                                                            <Dropdown.Item href="#">Add to favorites</Dropdown.Item>
+                                                            <Dropdown.Item onClick={() => this.addToFavs(this.state.post_id)}>Add to favorites</Dropdown.Item>
                                                         )
-                                                    }  
-                                                    <Dropdown.Item href={"/comments/" + this.state.post_id}>Show comments</Dropdown.Item>
+                                                        }
+                                                        {
+                                                        Cookies.get(`my_posts_${this.state.post_id}`) == this.state.post_id && (
+                                                                <Dropdown.Item href="#">Update post</Dropdown.Item>
+                                                        )
+                                                        }  
+                                                        <Dropdown.Item href={"/comments/" + this.state.post_id}>Show comments</Dropdown.Item>
                                                     </Dropdown.Menu>
                                                 )
                                         

@@ -10,7 +10,7 @@ export default function AllUsers({users, loading}) {
                 const url = "/users/" + users.id
                 return (
                   <div className='user-info-div'>
-                    <Link to={url}>
+                    <Link to={users.id == Cookies.get('my_id') ? '/me' : url}>
                       <div className="avatar-div">
                         <img id="avatar" key={index} src={'http://localhost:8000/' + users.avatar} />
                       </div>

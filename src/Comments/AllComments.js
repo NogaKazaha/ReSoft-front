@@ -9,12 +9,10 @@ export default function AllComments({comments, loading}) {
             comments.map((comments, index) =>{
               return (
                 <div className='comment'>
-                  <div className='user-avatar'>
-                    <svg viewBox="0 0 34 34" fill="#F2F0FE" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="17" cy="17" r="17" />
-                    </svg>
+                  <div className="avatar-div">
+                    <img id="avatar" key={index} src={'http://localhost:8000/' + comments.avatar} />
                   </div>
-                    <h1 id="comment-author">{}</h1>
+                    <Link to={comments.user_id == Cookies.get('my_id') ? '/me' : '/users/' + comments.user_id }><h1 id="comment-author">{comments.username}</h1></Link>
                     <span id="comment-content">{comments.content}</span>
                     <span id="comment-content">Rating: {comments.rating}</span>
                 </div>

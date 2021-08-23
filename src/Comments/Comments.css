@@ -38,6 +38,13 @@
 	margin-top: 20px;
 	display: flex;
 	flex-direction: column;
+	text-align: center;
+}
+
+.comment > a {
+	margin: 10px 0;
+	font-size: 10px;
+  	text-align: center;
 }
 .comment > h1 {
   font-size: 12px;

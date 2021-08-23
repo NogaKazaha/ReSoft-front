@@ -52,12 +52,19 @@ function Login() {
         "Accept":'application/json'
       }
       })
+      let my_posts = await fetch(`http://127.0.0.1:8000/api/posts/show/${result.user_id}/ids`, {
+      method:"GET",
+      headers:{
+        "Content-Type":'application/json',
+        "Accept":'application/json'
+      }
+      })
       
       liked_posts = await liked_posts.json()
       liked_comments = await liked_comments.json()
       subs = await subs.json()
       favs = await favs.json()
-      console.log(subs)
+      my_posts = await my_posts.json()
       for(let i = 1; i <= liked_posts.length; i++) {
         Cookies.set(`liked_post_${liked_posts[i - 1]}`, liked_posts[i - 1]);
       }
@@ -69,6 +76,9 @@ function Login() {
       }
       for(let i = 1; i <= favs.length; i++) {
         Cookies.set(`favs_${favs[i - 1]}`, favs[i - 1]);
+      }
+      for(let i = 1; i <= my_posts.length; i++) {
+        Cookies.set(`my_posts_${my_posts[i - 1]}`, my_posts[i - 1]);
       }
       console.warn(result.token)
       Cookies.set('token', result.token);
@@ -85,7 +95,7 @@ function Login() {
       <div className="login-form">
         <h1>Log in</h1>
         <input className="login-input" value={username} type="text" onChange={(e)=> setUsername(e.target.value)} placeholder="Username"></input>
-        <input className="login-input" value={password} type="text" onChange={(e)=> setPassword(e.target.value)} placeholder="Password"></input>
+        <input className="login-input" value={password} type="password" onChange={(e)=> setPassword(e.target.value)} placeholder="Password"></input>
         <button className="login-button" onClick={logIn}>Log in</button>
         <span className="redirect-to-register">Don't have account? <Link to="/register">Sign up</Link></span>
         <span className="redirect-to-register">Forgot password? <Link to="/password_reset">Reset password</Link></span>
