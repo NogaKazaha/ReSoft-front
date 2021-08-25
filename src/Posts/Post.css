@@ -233,3 +233,25 @@
 	background: white;
 	transition: 0.5s;
 }
+.create-form {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+}
+.create-input {
+	margin-top: 10px;
+	border: 1px solid gray;
+	border-radius: 10px;
+	padding: 10px 5px;
+	text-align: center;
+}
+.create-form > button {
+	margin-top: 10px;
+	background-color: black;
+	color: white;
+	padding: 10px 5px;
+	border-radius: 10px;
+}
+textarea {
+	resize: none;
+}

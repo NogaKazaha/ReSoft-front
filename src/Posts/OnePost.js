@@ -131,6 +131,20 @@ async delFromFavs(post_id) {
     console.warn("result", result)
     window.location.href = `/posts/${post_id}`
 }
+async delPost(post_id) {
+  let result = await fetch(`http://127.0.0.1:8000/api/posts/delete/${post_id}` , {
+    method:"DELETE",
+    headers:{
+      "Content-Type":'application/json',
+      "Accept":'application/json',
+      "Authorization": 'Bearer' + Cookies.get('token')
+    }
+  })
+  result = await result.json()
+  Cookies.remove(`my_posts_${post_id}`, post_id)
+  console.warn("result", result)
+  window.location.href = `/posts`
+}
   
   render() 
   { 
@@ -144,6 +158,7 @@ async delFromFavs(post_id) {
                             <span id="post-description">{this.state.post.content}</span>
                             <span id="post-rating-div">Rating: {this.state.post.rating}</span>
                             <Link to={this.state.post.user_id == Cookies.get('my_id') ? '/me' : '/users/' + this.state.post.user_id}><span id="post-creator-div">Author: {this.state.user.username}</span></Link>
+                            <span id="post-categories-div">{this.state.post.categories}</span>
                             <div class="dropdown">
                             <Dropdown>
                                     <Dropdown.Toggle variant="success" className="dropbtn">
@@ -178,7 +193,12 @@ async delFromFavs(post_id) {
                                                     }
                                                     {
                                                         Cookies.get(`my_posts_${this.state.post_id}`) == this.state.post_id && (
-                                                                <Dropdown.Item href="#">Update post</Dropdown.Item>
+                                                                <Dropdown.Item href={`/posts/update/${this.state.post_id}`}>Update post</Dropdown.Item>
+                                                        )
+                                                    }
+                                                    {
+                                                      Cookies.get(`my_posts_${this.state.post_id}`) == this.state.post_id && (
+                                                          <Dropdown.Item onClick={() => this.delPost(this.state.post_id)}>Delete post</Dropdown.Item>
                                                         )
                                                     }
                                                     <Dropdown.Item href={"/comments/" + this.state.post_id}>Show comments</Dropdown.Item>
@@ -207,9 +227,14 @@ async delFromFavs(post_id) {
                                                         )
                                                         }
                                                         {
-                                                        Cookies.get(`my_posts_${this.state.post_id}`) == this.state.post_id && (
-                                                                <Dropdown.Item href="#">Update post</Dropdown.Item>
+                                                          Cookies.get(`my_posts_${this.state.post_id}`) == this.state.post_id && (
+                                                                <Dropdown.Item href={`/posts/update/${this.state.post_id}`}>Update post</Dropdown.Item>
                                                         )
+                                                        }
+                                                        {
+                                                          Cookies.get(`my_posts_${this.state.post_id}`) == this.state.post_id && (
+                                                              <Dropdown.Item onClick={() => this.delPost(this.state.post_id)}>Delete post</Dropdown.Item>
+                                                            )
                                                         }  
                                                         <Dropdown.Item href={"/comments/" + this.state.post_id}>Show comments</Dropdown.Item>
                                                     </Dropdown.Menu>

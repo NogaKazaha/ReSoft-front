@@ -59,12 +59,21 @@ function Login() {
         "Accept":'application/json'
       }
       })
+      let my_comments = await fetch(`http://127.0.0.1:8000/api/comments/show/${result.user_id}/user`, {
+      method:"GET",
+      headers:{
+        "Content-Type":'application/json',
+        "Accept":'application/json'
+      }
+      })
+      
       
       liked_posts = await liked_posts.json()
       liked_comments = await liked_comments.json()
       subs = await subs.json()
       favs = await favs.json()
       my_posts = await my_posts.json()
+      my_comments = await my_comments.json()
       for(let i = 1; i <= liked_posts.length; i++) {
         Cookies.set(`liked_post_${liked_posts[i - 1]}`, liked_posts[i - 1]);
       }
@@ -79,6 +88,9 @@ function Login() {
       }
       for(let i = 1; i <= my_posts.length; i++) {
         Cookies.set(`my_posts_${my_posts[i - 1]}`, my_posts[i - 1]);
+      }
+      for(let i = 1; i <= my_comments.length; i++) {
+        Cookies.set(`my_comments_${my_comments[i - 1]}`, my_comments[i - 1]);
       }
       console.warn(result.token)
       Cookies.set('token', result.token);

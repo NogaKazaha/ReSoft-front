@@ -43,3 +43,42 @@
     text-align: center;
     padding-bottom: 10px;
 }
+.update-post-main-div {
+	width: 100%;
+	min-height: calc(100vh - 160px);
+	background-color: white;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+}
+.update-posts-form {
+	margin-top: 10px;
+	height: 100%;
+	width: fit-content;
+	display: flex;
+	flex-direction: column;
+}
+.update-posts-form > h1 {
+	text-align: center;
+	margin-bottom: 10px;
+}
+.update-posts-form > textarea {
+	margin-bottom: 10px;
+}
+.update-posts-input::placeholder {
+	text-align: center;
+}
+.update-posts-input {
+	width: 600px;
+	border: 1px solid gray;
+	border-radius: 10px;
+	padding: 0 5px;
+	text-align: center;
+}
+.update-post-button {
+	height: 50px;
+	width: 600px;
+	background-color: black;
+	color: white;
+	border-radius: 10px;
+  }

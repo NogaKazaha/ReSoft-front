@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom'
 import Cookies from 'js-cookie';
 import './Post.css';
 import Modal from '../Modal/Modal';
+import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 export default function AllPosts({posts, loading}) {
     let [type] = useState("");
     async function putLIke(post_id) {
@@ -112,6 +113,20 @@ export default function AllPosts({posts, loading}) {
         console.warn("result", result)
         window.location.href = `/posts`
     }
+    async function delPost(post_id) {
+      let result = await fetch(`http://127.0.0.1:8000/api/posts/delete/${post_id}` , {
+        method:"DELETE",
+        headers:{
+          "Content-Type":'application/json',
+          "Accept":'application/json',
+          "Authorization": 'Bearer' + Cookies.get('token')
+        }
+      })
+      result = await result.json()
+      Cookies.remove(`my_posts_${post_id}`, post_id)
+      console.warn("result", result)
+      window.location.href = `/posts`
+  }
     let [title, setTitle] = useState("");
     let [content, setContent] = useState("");
     let [categories, setCategories] = useState("");
@@ -184,10 +199,15 @@ export default function AllPosts({posts, loading}) {
                                                         )
                                                     }
                                                     {
-                                                        Cookies.get(`my_posts_${posts.id}`) == posts.id && (
-                                                                <Dropdown.Item  onClick={() => setModalActive(true)}>Update post</Dropdown.Item>
-                                                        )
+                                                      Cookies.get(`my_posts_${posts.id}`) == posts.id && (
+                                                        <Dropdown.Item  href={`/posts/update/${posts.id}`}>Update post</Dropdown.Item>
+                                                      )
                                                     }
+                                                    {
+                                                      Cookies.get(`my_posts_${posts.id}`) == posts.id && (
+                                                        <Dropdown.Item onClick={() => delPost(posts.id)}>Delete post</Dropdown.Item>
+                                                      )
+                                                    } 
                                                     <Dropdown.Item href={comment_url}>Show comments</Dropdown.Item>
                                                 </Dropdown.Menu>
                                                 )
@@ -215,7 +235,12 @@ export default function AllPosts({posts, loading}) {
                                                         }
                                                         {
                                                         Cookies.get(`my_posts_${posts.id}`) == posts.id && (
-                                                                <Dropdown.Item  onClick={() => setModalActive(true)}>Update post</Dropdown.Item>
+                                                                <Dropdown.Item  href={`/posts/update/${posts.id}`}>Update post</Dropdown.Item>
+                                                        )
+                                                        }
+                                                        {
+                                                        Cookies.get(`my_posts_${posts.id}`) == posts.id && (
+                                                          <Dropdown.Item onClick={() => delPost(posts.id)}>Delete post</Dropdown.Item>
                                                         )
                                                         }  
                                                         <Dropdown.Item href={comment_url}>Show comments</Dropdown.Item>

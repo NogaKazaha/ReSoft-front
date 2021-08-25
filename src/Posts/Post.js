@@ -47,6 +47,7 @@ function Posts() {
         })
         result = await result.json()
         console.warn("result", result)
+        Cookies.set(`my_posts_${result.post.id}`, result.post.id)
         window.location.href = `/posts`
       }
 
@@ -80,7 +81,7 @@ function Posts() {
                         <div className="create-form">
                             <p>Create new post</p>
                             <input className="create-input" value={title} type="text" onChange={(e)=> setTitle(e.target.value)} placeholder="Title"></input>
-                            <input className="create-input" value={content} type="text" onChange={(e)=> setContent(e.target.value)} placeholder="Content"></input>
+                            <textarea className="create-input" rows="25" cols="300" value={content} type="text" onChange={(e)=> setContent(e.target.value)} placeholder="Content"></textarea>
                             <input className="create-input" value={categories} type="text" onChange={(e)=> setCategories(e.target.value)} placeholder="Categories"></input>
                             <button className="create-button" onClick={createNewPost}>Create</button>
                         </div>

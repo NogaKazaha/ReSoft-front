@@ -14,6 +14,8 @@ import OneCategory from './Categories/OneCategory';
 import Users from './Users/Users';
 import OneUser from './Users/OneUser';
 import OnePost from './Posts/OnePost';
+import UpdateOnePost from './Posts/UpdateOnePost';
+import UpdateOneComment from './Comments/UpdateOneComment';
 
 function App() {
   return (
@@ -22,7 +24,8 @@ function App() {
         <Switch>
           <Route path="/" exact component={ WelcomePage }/>
           <Route path="/posts" exact component={ Posts }/>
-          <Route path='/posts/:id' component = {OnePost} />
+          <Route path='/posts/:id' exact component = {OnePost} />
+          <Route path='/posts/update/:id' exact component = {UpdateOnePost} />
           <Route path="/categories" exact component={ Categories }/>
           <Route path='/categories/:id' component = {OneCategory} />
           <Route path="/users" exact component={ Users }/>
@@ -31,7 +34,8 @@ function App() {
           <Route path="/register" exact component={ Register }/>
           <Route path="/password_reset" exact component={ PasswordReset }/>
           <Route path="/password_reset/:token" exact component={ ForgotPassword }/>
-          <Route path="/comments/:id" component={ Comments }/>
+          <Route path="/comments/:id" exact component={ Comments }/>
+          <Route path="/comments/update/:id" exact component={ UpdateOneComment } />
           <Route path="/me" exact component={ MyProfile }/>
           <Route path="/me/update" exact component={ UpdateMyProfile }/>
         </Switch>
