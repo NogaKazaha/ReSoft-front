@@ -56,6 +56,8 @@ function MyProfile() {
               <span className="my-profile-span">Role: {user.role}</span>
           </div>
           <div className="my-profile-buttons">
+            <Link to={`/me/favorites?id=${user.id}`}>My favorites</Link>
+            <Link to={`/me/subs?id=${user.id}`}>My subsctiptions</Link>
             <Link to='/me/update'>Update my profile</Link>
             <Link onClick={() => setModalActive(true)}>Delete my profile</Link>
           </div>

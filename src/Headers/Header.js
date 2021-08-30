@@ -2,9 +2,17 @@ import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import './Header.css';
 import logo from '../assets/logo-full.svg';
-import { Link } from 'react-router-dom'
-function Header() {
-    async function logOut() {
+import { Link, useLocation, useNavigate} from 'react-router-dom'
+import { push } from 'react-router-redux';
+import {browserHistory} from 'react-router'
+export default class Header extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {
+            search: ''
+        }
+      }
+    async logOut() {
         const token = Cookies.get('token');
         let item = {token}
         console.warn(item)
@@ -25,47 +33,48 @@ function Header() {
         }
         result = await result.json()
         console.warn(result)
-        window.location.href = "/"
+        this.context.Router.push("/")
       }
-    return (
-        <div className='header-main-div'>
-            <div className='header'>
-                <div className='logo'>
-                    <label><Link to="/">ReSoft</Link></label>
-                </div>
-                <div className='search'>
-                    <input type='text' placeholder='Search for titles, contents or tags...' />
-                    <button>
-                    <svg class="svg-icon search-icon" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7">
-                        <title id="title">Search Icon</title><desc id="desc">A magnifying glass icon.</desc><g class="search-path" fill="none" stroke="#848F91">
-                            <path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/>
-                            <circle cx="8" cy="8" r="7"/></g></svg>
-                    </button>
-                </div>
-                <div className="help">
-                    <Link to="/posts">Posts</Link>
-                    <Link to="/categories">Categories</Link>
-                    <Link to="/users">Users</Link>
-                    {
-                        Cookies.get('token') != null && (
-                            <Link to='/me'>My profile</Link>
-                        )
-                    }
-                </div>
-                <div className='user'>
-                    {Cookies.get('token') == null &&
-                    (<Link to={"/login"}>
-                        Log In
-                    </Link>)
-                    ||
-                    (<Link to={"/"} onClick={logOut}>
-                        Logout
-                    </Link>)
-                    }
+      render() {
+        return (
+            <div className='header-main-div'>
+                <div className='header'>
+                    <div className='logo'>
+                        <label><Link to="/">ReSoft</Link></label>
+                    </div>
+                    <div className='search'>
+                        <input type='text' value={this.state.search} placeholder='Search for titles, contents or tags...' onChange={(e)=> this.setState({search: e.target.value})}/>
+                        <button onClick={ () => {window.location.href = `/posts/search?value=${this.state.search}`}}>
+                        <svg class="svg-icon search-icon" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7">
+                            <title id="title">Search Icon</title><desc id="desc">A magnifying glass icon.</desc><g class="search-path" fill="none" stroke="#848F91">
+                                <path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/>
+                                <circle cx="8" cy="8" r="7"/></g></svg>
+                        </button>
+                    </div>
+                    <div className="help">
+                        <Link to="/posts">Posts</Link>
+                        <Link to="/categories">Categories</Link>
+                        <Link to="/users">Users</Link>
+                        {
+                            Cookies.get('token') != null && (
+                                <Link to='/me'>My profile</Link>
+                            )
+                        }
+                    </div>
+                    <div className='user'>
+                        {Cookies.get('token') == null &&
+                        (<Link to={"/login"}>
+                            Log In
+                        </Link>)
+                        ||
+                        (<Link to={"/"} onClick={this.logOut}>
+                            Logout
+                        </Link>)
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+      }
 }
 
-export default Header;

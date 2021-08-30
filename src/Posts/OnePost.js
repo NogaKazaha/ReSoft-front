@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
 import './OnePost.css'
 import Cookies from 'js-cookie';
+import moment from 'moment'
 
 export default class OnePost extends React.Component {
   constructor (props) {
@@ -40,7 +41,7 @@ export default class OnePost extends React.Component {
     result = await result.json()
     Cookies.set(`liked_post_${post_id}`, post_id)
     console.warn("result", result)
-    window.location.href = `/posts/${post_id}`
+    this.forceUpdate()
 }
 async putDislike(post_id) {
     const type = "dislike" 
@@ -59,7 +60,7 @@ async putDislike(post_id) {
     result = await result.json()
     Cookies.set(`liked_post_${post_id}`, post_id)
     console.warn("result", result)
-    window.location.href = `/posts/${post_id}`
+    this.forceUpdate()
 }
 async deleteMyMark(post_id) {
     let result = await fetch(`http://127.0.0.1:8000/api/posts/${post_id}/like` , {
@@ -73,7 +74,7 @@ async deleteMyMark(post_id) {
     result = await result.json()
     Cookies.remove(`liked_post_${post_id}`)
     console.warn("result", result)
-    window.location.href = `/posts/${post_id}`
+    this.forceUpdate()
 }
 async addToSubs(post_id) {
     let result = await fetch(`http://127.0.0.1:8000/api/subscriptions/add/${post_id}` , {
@@ -87,7 +88,7 @@ async addToSubs(post_id) {
     result = await result.json()
     Cookies.set(`subs_${post_id}`, post_id)
     console.warn("result", result)
-    window.location.href = `/posts/${post_id}`
+    this.forceUpdate()
 }
 async delFromSubs(post_id) {
     let result = await fetch(`http://127.0.0.1:8000/api/subscriptions/delete/${post_id}` , {
@@ -101,7 +102,7 @@ async delFromSubs(post_id) {
     result = await result.json()
     Cookies.remove(`subs_${post_id}`, post_id)
     console.warn("result", result)
-    window.location.href = `/posts/${post_id}`
+    this.forceUpdate()
 }
 async addToFavs(post_id) {
     let result = await fetch(`http://127.0.0.1:8000/api/favorites/add/${post_id}` , {
@@ -115,7 +116,7 @@ async addToFavs(post_id) {
     result = await result.json()
     Cookies.set(`favs_${post_id}`, post_id)
     console.warn("result", result)
-    window.location.href = `/posts/${post_id}`
+    this.forceUpdate()
 }
 async delFromFavs(post_id) {
     let result = await fetch(`http://127.0.0.1:8000/api/favorites/delete/${post_id}` , {
@@ -129,7 +130,7 @@ async delFromFavs(post_id) {
     result = await result.json()
     Cookies.remove(`favs_${post_id}`, post_id)
     console.warn("result", result)
-    window.location.href = `/posts/${post_id}`
+    this.forceUpdate()
 }
 async delPost(post_id) {
   let result = await fetch(`http://127.0.0.1:8000/api/posts/delete/${post_id}` , {
@@ -143,7 +144,8 @@ async delPost(post_id) {
   result = await result.json()
   Cookies.remove(`my_posts_${post_id}`, post_id)
   console.warn("result", result)
-  window.location.href = `/posts`
+  this.props.history.push(`/posts`)
+  this.forceUpdate()
 }
   
   render() 
@@ -159,6 +161,7 @@ async delPost(post_id) {
                             <span id="post-rating-div">Rating: {this.state.post.rating}</span>
                             <Link to={this.state.post.user_id == Cookies.get('my_id') ? '/me' : '/users/' + this.state.post.user_id}><span id="post-creator-div">Author: {this.state.user.username}</span></Link>
                             <span id="post-categories-div">{this.state.post.categories}</span>
+                            <span id="post-rating-div">{moment(this.state.post.created_at).fromNow()}</span>
                             <div class="dropdown">
                             <Dropdown>
                                     <Dropdown.Toggle variant="success" className="dropbtn">

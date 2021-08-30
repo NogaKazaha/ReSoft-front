@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Router, Switch, Re } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import React, {useState, useEffect} from 'react';
 import Header from './Headers/Header';
 import Posts from './Posts/Post.js'
@@ -16,6 +16,9 @@ import OneUser from './Users/OneUser';
 import OnePost from './Posts/OnePost';
 import UpdateOnePost from './Posts/UpdateOnePost';
 import UpdateOneComment from './Comments/UpdateOneComment';
+import SearchPosts from './Posts/SearchPosts';
+import UserFavorites from './Posts/UserFavorites';
+import UserSubs from './Posts/UserSubs';
 
 function App() {
   return (
@@ -24,6 +27,9 @@ function App() {
         <Switch>
           <Route path="/" exact component={ WelcomePage }/>
           <Route path="/posts" exact component={ Posts }/>
+          <Route path='/posts/search' exact component = {SearchPosts} />
+          <Route path='/me/favorites' exact component = {UserFavorites} />
+          <Route path='/me/subs' exact component = {UserSubs} />
           <Route path='/posts/:id' exact component = {OnePost} />
           <Route path='/posts/update/:id' exact component = {UpdateOnePost} />
           <Route path="/categories" exact component={ Categories }/>

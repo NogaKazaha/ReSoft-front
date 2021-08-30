@@ -3,6 +3,7 @@ import { Dropdown } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom'
 import Cookies from 'js-cookie';
 import './Post.css';
+import moment from 'moment'
 import Modal from '../Modal/Modal';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 export default function AllPosts({posts, loading}) {
@@ -127,38 +128,6 @@ export default function AllPosts({posts, loading}) {
       console.warn("result", result)
       window.location.href = `/posts`
   }
-    let [title, setTitle] = useState("");
-    let [content, setContent] = useState("");
-    let [categories, setCategories] = useState("");
-    const [modalActive, setModalActive] = useState(false)
-    async function update(posts) {
-        let item = {title, content, categories}
-        if(title == "") {
-          title = posts.title
-          delete item.title
-        }
-        if(content == "") {
-          content = posts.content
-          delete item.content
-        }
-        if(categories == "") {
-          categories = posts.categories
-          delete item.categories
-        }
-        console.warn(item)
-        let result = await fetch(`http://127.0.0.1:8000/api/posts/update/${posts.id}`, {
-          method:"PATCH",
-          body:JSON.stringify(item),
-          headers:{
-            "Content-Type":'application/json',
-            "Accept":'application/json',
-            "Authorization": 'Bearer' + Cookies.get('token')
-          }
-        })
-        result = await result.json()
-        window.location.href = `/posts`
-        
-      }
     return (
         <div className='all-posts-menu'>
             {
@@ -263,10 +232,14 @@ export default function AllPosts({posts, loading}) {
                                     <span id="post-content">{posts.content}</span>
                                     <div className='post-rating'>
                                         <span id="post-content">Rating: {posts.rating}</span>
-                                    </div> 
+                                    </div>
+                         
                                     <div id="post-tags">
                                         <span id="post-tags-content">Categories: {posts.categories}</span>
                                     </div>
+                                    <div className='post-rating'>
+                                        <span id="post-content">{moment(posts.created_at).fromNow()}</span>
+                                    </div> 
                                 </Link>
                             </div>
                         </div>

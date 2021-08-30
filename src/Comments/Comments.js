@@ -17,7 +17,6 @@ function Comments() {
   const [modalActive, setModalActive] = useState(false)
   const [content, setContent] = useState("");
   let [comments, setComments] = useState([])
-  let [authors, setAuthors] = useState([])
   useEffect(() => {
     setLoading(true)
       fetch(`http://127.0.0.1:8000/api/comments/show/${post_id[0]}/post`, {
@@ -69,7 +68,7 @@ function Comments() {
                 </div>
               )
             }
-            <AllComments comments={currentComment} authors={authors} post_id={post_id[0]}/>
+            <AllComments comments={currentComment} post_id={post_id[0]}/>
             <Pagination PerPage={commentsPerPage} total={comments.length} paginate={paginate} />
               <Modal active={modalActive} setActive={setModalActive}>
                         <div className="create-form">

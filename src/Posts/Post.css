@@ -191,7 +191,6 @@
 }
 .post-rating {
 	color: black;
-	margin-bottom: 5px;
 }
 .dropdown {
 	position: relative;
@@ -214,7 +213,7 @@
 .dropdown-content a:hover {background-color: #ddd}
 .show {display:block;}
 .content > div:first-child {
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 }
 .content > div:first-child > button {
 	height: 100%;
@@ -226,7 +225,7 @@
 	padding: 0 10px 0 10px;
 	font-size: 20px;
 	line-height: 20px;
-	padding: 10px 10px;
+	padding: 5px 5px;
 }
 .content > div:first-child > button:hover {
   	color: black;
@@ -242,14 +241,14 @@
 	margin-top: 10px;
 	border: 1px solid gray;
 	border-radius: 10px;
-	padding: 10px 5px;
+	padding: 5px 5px;
 	text-align: center;
 }
 .create-form > button {
 	margin-top: 10px;
 	background-color: black;
 	color: white;
-	padding: 10px 5px;
+	padding: 5px 5px;
 	border-radius: 10px;
 }
 textarea {
